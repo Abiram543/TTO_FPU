@@ -163,6 +163,6 @@ generate
 endgenerate
 
 // Tie off unused inputs
-wire _unused = &{ena, ui_in[7:5], 1'b0};
+wire _unused = &{ena, ui_in[7:4], 1'b0};
 
 endmodule
