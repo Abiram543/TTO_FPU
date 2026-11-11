@@ -23,7 +23,7 @@ localparam WR_PTR_W     = $clog2(TOTAL_BYTES)  > 0
 localparam RD_PTR_W     = $clog2(BYTES_PER_OP) > 0
                         ? $clog2(BYTES_PER_OP) : 1;         // read-pointer width
 
-// Edge detection — single-stage pipeline (TT mux, same clock domain)
+// Edge detection - single-stage pipeline (TT mux, same clock domain)
 reg [1:0] wr_s, rd_s, st_s;
 
 always @(posedge clk or negedge rst_n) begin
@@ -41,7 +41,7 @@ wire start_pulse =  st_s[0] & ~st_s[1];
 wire rd_fall     = ~rd_s[0] &  rd_s[1];
 wire rd_level    =  rd_s[0];
 
-// Operand registers — NO reset (saves mux cells)
+// Operand registers - NO reset (saves mux cells)
 reg [WIDTH-1:0]       a_reg, b_reg, result_reg;
 reg [WR_PTR_W-1:0]   wr_ptr;
 reg [RD_PTR_W-1:0]   rd_ptr;
@@ -67,7 +67,7 @@ fpu_core #(
     .err       (core_err)
 );
 
-// Byte-write logic — uses synthesisable variable part-select
+// Byte-write logic - uses synthesisable variable part-select
 // Each iteration of the loop is unrolled at elaboration (constant index).
 localparam [WR_PTR_W-1:0] BYTES_OFFSET = BYTES_PER_OP[WR_PTR_W-1:0];
 localparam [WR_PTR_W-1:0] WR_PTR_LAST  = TOTAL_BYTES[WR_PTR_W-1:0] - 1'b1;
@@ -106,7 +106,7 @@ always @(posedge clk or negedge rst_n) begin
         core_start <= 1'b0;                          // default: 1-cycle pulse
 
         if (busy) begin
-            // LOCKED — ignore user inputs while core computes
+            // LOCKED - ignore user inputs while core computes
             if (!core_start && (core_done || core_err)) begin
                 busy       <= 1'b0;
                 done_l     <= core_done;
@@ -114,13 +114,7 @@ always @(posedge clk or negedge rst_n) begin
                 result_reg <= core_result;
             end
         end else begin
-            // IDLE
-            if (clr) begin
-                wr_ptr <= {WR_PTR_W{1'b0}};
-                rd_ptr <= {RD_PTR_W{1'b0}};
-                ready  <= 1'b0;
-            end
-            else if (start_pulse && ready) begin
+            if (start_pulse && ready) begin
                 op_reg     <= ui_in[3];
                 core_start <= 1'b1;
                 busy       <= 1'b1;
