@@ -38,19 +38,6 @@ Because Tiny Tapeout tiles provide only 8 dedicated digital inputs (`ui_in`) and
 
 ## How to test
 
-The design includes a comprehensive cocotb testbench that verifies normal operations, boundary cases, error conditions, and consecutive back-to-back operations.
-
-### Testing via Cocotb Simulation
-
-From the `test/` directory, run:
-```bash
-make
-```
-For Gate-Level simulation:
-```bash
-make GATES=yes
-```
-
 ### Manual Testing Protocol (e.g. on FPGA or Commander / Microcontroller)
 
 To perform `1.5 + 2.25 = 3.75`:
@@ -71,7 +58,3 @@ To perform `1.5 + 2.25 = 3.75`:
 9. The combined 16-bit result is `0x4380` (3.75 in FP16).
 
 ---
-
-## External hardware
-
-None required. The design runs directly on the Tiny Tapeout demo carrier board, using switches or microcontrollers for `ui_in`/`uio_in` and LEDs/logic analyzer for `uo_out`/`uio_out`. Can also be demonstrated on an FPGA development board (e.g., RealDigital Boolean Board `xc7s50csga324-1`) using AMD Vivado Virtual Input/Output (VIO) probes over JTAG.
