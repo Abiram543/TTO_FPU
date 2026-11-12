@@ -1,6 +1,6 @@
 # Tiny Tapeout project information
 project:
-  title:        "FPU32"      # Project title
+  title:        "Parameterized_FPU_Adder_Subtractor"      # Project title
   author:       "Abiram Vedant Srinidhi Harsh"      # Your name
   discord:      ""      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
   description:  "Floating Point arithmetic unit"      # One line description of what your project does
