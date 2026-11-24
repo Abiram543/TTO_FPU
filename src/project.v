@@ -127,7 +127,7 @@ always @(posedge clk or negedge rst_n) begin
                 wr_ptr <= wr_ptr + {{(WR_PTR_W-1){1'b0}}, 1'b1};
                 ready  <= (wr_ptr == WR_PTR_LAST);  // ready after last byte
             end
-            else if (rd_fall) begin
+            else if (rd_fall && !wr_level) begin
                 rd_ptr <= rd_ptr + {{(RD_PTR_W-1){1'b0}}, 1'b1};
             end
         end
