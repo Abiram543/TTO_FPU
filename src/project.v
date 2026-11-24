@@ -147,7 +147,7 @@ always @(*) begin
 end
 
 // Output assignments
-assign uio_oe  = (!wr_level && rd_level && !busy) ? 8'hFF : 8'h00;
+    assign uio_oe  = (!(wr_level || wr_pulse) && rd_level && !busy) ? 8'hFF : 8'h00;
 assign uio_out = rd_byte;
 
 assign uo_out[0] = busy;
